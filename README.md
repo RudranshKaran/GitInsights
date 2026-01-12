@@ -44,11 +44,11 @@ The evaluation is designed to reflect how a **recruiter** would assess a GitHub 
 
 ```mermaid
 flowchart TB
-    A[Frontend<br/>(Next.js on Vercel)] --> B[Backend API<br/>(FastAPI)]
+    A[Frontend (Next.js on Vercel)] --> B[Backend API (FastAPI)]
 
     B --> C[GitHub Repository Ingestion]
     B --> D[Rule-Based Analysis Engine]
-    B --> E[AI Evaluation<br/>(Gemini via LangChain)]
+    B --> E[AI Evaluation (Gemini via LangChain)]
     B --> F[Hybrid Scoring Engine]
 
     C --> G[Structured Evaluation Report]
