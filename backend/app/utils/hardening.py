@@ -25,11 +25,17 @@ REQUEST_TIMEOUT_SECONDS = int(os.getenv("REQUEST_TIMEOUT_SECONDS", "90"))
 # Maximum request body size (1MB)
 MAX_REQUEST_BODY_SIZE = int(os.getenv("MAX_REQUEST_BODY_SIZE", "1048576"))
 
-# CORS allowed origins (comma-separated in env, defaults to localhost)
-CORS_ORIGINS = os.getenv(
-    "CORS_ORIGINS", 
-    "http://localhost:3000,http://127.0.0.1:3000"
-).split(",")
+# CORS allowed origins (supports FRONTEND_URL for production or comma-separated list)
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+if FRONTEND_URL:
+    # Production: Use FRONTEND_URL
+    CORS_ORIGINS = [FRONTEND_URL.rstrip("/")]
+else:
+    # Development: Use CORS_ORIGINS or default to localhost
+    CORS_ORIGINS = os.getenv(
+        "CORS_ORIGINS", 
+        "http://localhost:3000,http://127.0.0.1:3000"
+    ).split(",")
 
 # Cache TTL in seconds (15 minutes)
 CACHE_TTL_SECONDS = int(os.getenv("CACHE_TTL_SECONDS", "900"))

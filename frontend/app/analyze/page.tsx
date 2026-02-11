@@ -84,7 +84,12 @@ export default function AnalyzePage() {
     const timeoutId = setTimeout(() => controller.abort(), FRONTEND_TIMEOUT_MS);
 
     try {
-      const response = await fetch('/api/v1/analyze', {
+      // Use environment variable for API URL (production) or relative path (development)
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL 
+        ? `${process.env.NEXT_PUBLIC_API_URL}/api/v1/analyze`
+        : '/api/v1/analyze';
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

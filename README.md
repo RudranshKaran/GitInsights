@@ -116,33 +116,86 @@ Scores are **guidance-oriented**, not absolute judgments.
 
 ---
 
-### Backend Setup
+### Quick Start with PowerShell Scripts (Windows)
+
+```powershell
+# Terminal 1 - Backend
+.\backend\start-dev.ps1
+
+# Terminal 2 - Frontend
+.\frontend\start-dev.ps1
+```
+
+For detailed local setup instructions, see [QUICKSTART.md](QUICKSTART.md)
+
+---
+
+### Backend Setup (Manual)
 
 ```bash
 cd backend
 python -m venv venv
+
+# Windows
+.\venv\Scripts\Activate.ps1
+# Linux/Mac
 source venv/bin/activate
+
 pip install -r requirements.txt
 ```
-Create a `.env` file:
+
+Create a `.env` file from `.env.example`:
 ```env
-GITHUB_TOKEN=your_github_token
 GEMINI_API_KEY=your_gemini_api_key
+GITHUB_TOKEN=your_github_token  # Optional but recommended
 ```
+
 Run the server:
 ```bash
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload --port 8000
 ```
+
+Backend runs at: `http://localhost:8000`
 
 ---
 
-### Frontend Setup
+### Frontend Setup (Manual)
 
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+
+Frontend runs at: `http://localhost:3000`
+
+---
+
+## 🌐 Deployment
+
+GitInsight is designed to deploy easily on **Render** (backend) and **Vercel** (frontend).
+
+### Production Deployment
+
+For complete deployment instructions, see:
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Full deployment guide for Render + Vercel
+- **[QUICKSTART.md](QUICKSTART.md)** - Quick reference and checklists
+
+### Quick Deploy Summary
+
+**Backend (Render):**
+1. Connect GitHub repository
+2. Set root directory to `backend`
+3. Add environment variables (GEMINI_API_KEY, FRONTEND_URL)
+4. Deploy with: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+
+**Frontend (Vercel):**
+1. Import repository from GitHub
+2. Set root directory to `frontend`
+3. Add NEXT_PUBLIC_API_URL environment variable
+4. Deploy (auto-detected as Next.js)
+
+Both platforms offer free tiers perfect for MVP deployment.
 
 ---
 

@@ -1,0 +1,29 @@
+# Render Blueprint for GitInsight Backend
+# This file enables one-click deployment to Render
+# See: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: gitinsight-backend
+    runtime: python
+    plan: free  # Change to 'starter' or higher for production
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false  # Set manually in Render dashboard
+      - key: GITHUB_TOKEN
+        sync: false  # Optional - set manually in Render dashboard
+      - key: FRONTEND_URL
+        sync: false  # Set to your Vercel URL (e.g., https://your-app.vercel.app)
+      - key: PORT
+        value: 10000
+      - key: RATE_LIMIT
+        value: 10/minute
+      - key: REQUEST_TIMEOUT_SECONDS
+        value: 90
+      - key: CACHE_TTL_SECONDS
+        value: 900
+      - key: CACHE_MAX_SIZE
+        value: 100
+    healthCheckPath: /health
